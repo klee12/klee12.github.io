@@ -102,7 +102,33 @@
 			return 0.9 * Math.pow(val/minValue, .7) * minRadius;
 		}     
    
-		//var covidData = new L.geoJson(covidData).addTo(map);
+	//******onEachFeature******//
+
+var onEachFeature = function(feature, layer) {
+        if (feature.properties) {
+          var prop = feature.properties;
+
+ 
+// make an html popup with properties
+//see how you can concatenate various attributes and text as needed, //including HTML markup, with single quotes. You pull out properties by //typing in prop and then putting the field in brackets.
+//you can do this because prop = feature.properties._____
+
+ 
+
+    var popup = '<h3>'+prop['Location']+'</h3>'+'<br>Cases Day 1: '+prop['1']+'<br>Cases Day 16: '+prop['covid'];
+
+            // add known info about event to the description
+     
+ // you must create a layer property on each feature or else
+ // the search results wont know where the item is on the map / layer
+
+          feature.layer = layer;
+          layer.bindPopup(popup, {maxWidth: "auto"});
+        }
+      }; // end onEachFeature	
+		
+		
+	//var covidData = new L.geoJson(covidData).addTo(map);
  
 		var covidData = new L.geoJson(covidData, {
 	    onEachFeature : onEachFeature,
@@ -166,30 +192,7 @@
               }
             });
 
-//******onEachFeature******//
 
-var onEachFeature = function(feature, layer) {
-        if (feature.properties) {
-          var prop = feature.properties;
-
- 
-// make an html popup with properties
-//see how you can concatenate various attributes and text as needed, //including HTML markup, with single quotes. You pull out properties by //typing in prop and then putting the field in brackets.
-//you can do this because prop = feature.properties._____
-
- 
-
-    var popup = '<h3>'+prop['Location']+'</h3>'+'<br>Cases Day 1: '+prop['1']+'<br>Cases Day 16: '+prop['covid'];
-
-            // add known info about event to the description
-     
- // you must create a layer property on each feature or else
- // the search results wont know where the item is on the map / layer
-
-          feature.layer = layer;
-          layer.bindPopup(popup, {maxWidth: "auto"});
-        }
-      }; // end onEachFeature
 
  
 
