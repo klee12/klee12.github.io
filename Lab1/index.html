@@ -24,9 +24,13 @@
 </head>
 <body>
 
+<div id="media">
+    <h2>Media</h2>
+    <img src="https://content.codecademy.com/courses/web-101/web101-image_brownbear.jpg" />
+  </div>
 
 <!-- (5) a "div" is like a window; you're basically telling the browser to make a container here, size 600 by 400 -->
-<div id="mapid" style="width: 1200px; height: 1000px;"></div>
+<div id="mapid" style="width: 1000px; height: 800px;"></div>
 
 <script>
 //(6) when you are outside of the head and outside of functions, you can use just two slashes to leave single-line comments like this and you don't need to close
@@ -38,10 +42,9 @@
 	
 	
 	var mymap = L.map('mapid').setView([40.819273, -96.702968], 16);
-	L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-		maxZoom: 17,
-		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors '
-	}).addTo(mymap);
+	L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+}).addTo(mymap);
 //(10) right above here, you see you're adding this tileset and setting the max zoom level of "mymap" 
 
 //(11) this is how you define individual features on the map - a marker, a cirlce, a polygon. You could also call up a variable and point it to a hosted GIS file to load it in.
