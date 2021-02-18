@@ -115,7 +115,7 @@ var onEachFeature = function(feature, layer) {
 
  
 
-    var popup = '<h3>'+prop['Location']+'</h3>'+'<br>Cases Day 1: '+prop['1']+'<br>Cases Day 16: '+prop['covid'];
+    var popup = '<h3>'+prop['Location']+ ' province</h3>'+'<h4>COVID case count</h4>'+'<br>Day 1: '+prop['1']+'<br>Day 10: '+prop['10']+'<br>Day 16: '+prop['covid'];
 
             // add known info about event to the description
      
@@ -123,7 +123,7 @@ var onEachFeature = function(feature, layer) {
  // the search results wont know where the item is on the map / layer
 
           feature.layer = layer;
-          layer.bindPopup(popup, {maxWidth: "auto"});
+          layer.bindPopup(popup, {Width: "auto"});
         }
       }; // end onEachFeature	
 		
@@ -145,6 +145,8 @@ var onEachFeature = function(feature, layer) {
         }
 		}).addTo(map);
   
+  
+  
  
 	var basemaps = {
 		"Light Canvas": canvas,
@@ -153,9 +155,15 @@ var onEachFeature = function(feature, layer) {
 
 	var overlaymaps = {
     "China Provinces ": provinces
+	
 	};
  	L.control.layers(basemaps, overlaymaps, {collapsed:false}).addTo(map);
  
+	
+	
+	
+	
+	
 	//******** Map element******//
 	
 	
@@ -165,8 +173,8 @@ var onEachFeature = function(feature, layer) {
     legend.onAdd = function (map) {
 
       var div = L.DomUtil.create('div', 'legend'),
-        grades = [0, 1000000, 2000000, 5000000, 10000000]; // break values to define the intervals of population - YOU WILL NEED TO MODIFY IT TO GET THE RIGHT LEGEND BREAKS
-         div.innerHTML = '<b>Population 2019 <br><br></b>';
+        grades = [0, 5000000, 10000000, 250000000, 50000000]; // break values to define the intervals of population - YOU WILL NEED TO MODIFY IT TO GET THE RIGHT LEGEND BREAKS
+         div.innerHTML = '<b>Population in China 2010 <br><br></b>';
 // The legend title, in this case it's Population 2019
 // Loop through the classes or “grades” and generate a label with a colored square for each interval.
         for (var i = 0; i < grades.length; i++) {
