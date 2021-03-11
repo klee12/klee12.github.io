@@ -27,7 +27,7 @@
 	  "esri/views/MapView",
 	  "esri/layers/FeatureLayer",
 	  "esri/widgets/Legend"
-	  ], function(Map, TileLayer, GeoJSONLayer, MapView, Legend, FeatureLayer) {
+	  ], function(Map, TileLayer, GeoJSONLayer, MapView, FeatureLayer, Legend) {
 
 		const url = "https://opendata.arcgis.com/datasets/5aa5f17d117f409d8608ec1bf6de06d6_0.geojson";
 		
@@ -52,24 +52,19 @@
               field: "CNTASSDVAL",
               stops: [
                 {
-                  value: 25000,
-                   size: "5px",
-                 label: "Under 25,000"
-                },
-                {
                    value: 100000,
-                    size: "10px",
-                  label: "20,000 to 99,999"
+                    size: "7px",
+                  label: "Low"
                 },
              {
                  value: 500000,
-                     size: "15px",
-                   label: "100,000 to 500,000"
+                     size: "17px",
+                   label: "Medium"
                 },
                 {
-                    value: 2500000,
-                     size: "25px",
-                   label: "Astronomical"
+                    value: 1000000,
+                     size: "26px",
+                   label: "High"
                 }
               ]
             }
@@ -116,12 +111,12 @@
         view:view,
         layerInfos: [{
         layer: geojsonLayer,
-        title: "Legend"
+        title: "Lab 6 Symbols"
         }]
         }); 
 		
 		map.add(featureLayer); 
-		view.ui.add(legend, "bottom-right");  
+		view.ui.add(legend, "bottom-left");  
 		  
 
       });
@@ -138,4 +133,4 @@
 
   </body>
 
-</html>             
+</html>                  
