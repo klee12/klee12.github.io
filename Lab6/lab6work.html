@@ -10,6 +10,9 @@
 
     <script src="https://d3js.org/d3.v5.min.js" charset="utf-8"></script>
 	<script src="https://klee12.github.io/Lab3/bus.js "></script>
+	<script src="https://klee12.github.io/Lab6/UnlBusStop.geojson "></script>
+	<script src="https://klee12.github.io/Lab6/boosterRoute.geojson "></script>
+	<script src="https://klee12.github.io/Lab6/background.geojson "></script>
    </head>
 
  
@@ -21,7 +24,7 @@
         <script>
 
           var width = 1000;
-		  var height = 600;
+		  var height = 700;
 
 			//create the SVG
 
@@ -41,7 +44,7 @@
 // Set Projection Parameters
 
 var albersProjection = d3.geoAlbers()
-    .scale( 250000 )
+    .scale( 200000 )
     .rotate( [96.6327,0] )
     .center( [0, 40.8497493] )   
     .translate( [width/2,height/2] );
@@ -50,17 +53,53 @@ var geoPath = d3.geoPath()
     .projection( albersProjection );
 
  g.selectAll( "path" )
-    .data( bus.features )
+    .data( background.features )
     .enter()
     .append( "path" )
     .attr( "fill", "#ccc" )
     .attr( "stroke", "#333")
     .attr( "d", geoPath );
 
-        </script>
+     
+
+var background1 = svg.append( "g" );
+
+background1.selectAll( "path" )
+			.data( unlBusStop.features )
+			.enter()
+			.append( "path" )
+			.attr( "fill", "#900")
+			.attr( "stroke", "#999")
+			.attr( "d", geoPath )
+			
+			
+var background2 = svg.append( "g" );
+
+background2.selectAll( "line" )
+			.data( boosterRoute.features )
+			.enter()
+			.append( "path" )
+			.attr( "fill", "#cfe1f2")
+			.attr( "stroke", "#999")
+			.attr( "d", geoPath )
+
+var background3 = svg.append( "g" );
+
+background3.selectAll( "path" )
+			.data( bus.features )
+			.enter()
+			.append( "path" )
+			.attr( "fill", "#08306b")
+			.attr( "stroke", "#999")
+			.attr( "d", geoPath )
+
+
+
+
+	 </script>
 
    </body>
 
 </html>
 
- 
+ ["#f7fbff","#e3eef9","#cfe1f2","#b5d4e9","#93c3df","#6daed5","#4b97c9","#2f7ebc","#1864aa","#0a4a90","#08306b"]
