@@ -11,7 +11,7 @@
     <script src="https://d3js.org/d3.v5.min.js" charset="utf-8"></script>
 	<script src="https://klee12.github.io/Lab3/bus.js "></script>
 	<script src="https://klee12.github.io/Lab6/UnlBusStop.geojson "></script>
-	<script src="https://klee12.github.io/Lab6/boosterRoute.geojson "></script>
+	<script src="https://klee12.github.io/Lab6/broute.geojson "></script>
 	<script src="https://klee12.github.io/Lab6/background.geojson "></script>
    </head>
 
@@ -75,8 +75,8 @@ background1.selectAll( "path" )
 			
 var background2 = svg.append( "g" );
 
-background2.selectAll( "line" )
-			.data( boosterRoute.features )
+background2.selectAll( "path" )
+			.data( broute.features )
 			.enter()
 			.append( "path" )
 			.attr( "fill", "#cfe1f2")
