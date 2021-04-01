@@ -11,15 +11,40 @@
     <script src="https://d3js.org/d3.v5.min.js" charset="utf-8"></script>
 	<script src="https://klee12.github.io/Lab3/bus.js "></script>
 	<script src="https://klee12.github.io/Lab6/UnlBusStop.geojson "></script>
-	<script src="https://klee12.github.io/Lab6/broute.geojson "></script>
+	<script src="https://klee12.github.io/Lab6/broute1.json "></script>
 	<script src="https://klee12.github.io/Lab6/background.geojson "></script>
-   </head>
+  
+	<style>
+		body {
+			position: absolute;
+			font-family: "Proxima Nova", "Montserrat", sans-serif;
+		}
+		h1, h2 {
+			position: absolute;
+			background: white;
+			left: 10px;
+			font-size: 1.3em;
+			font-weight: 100;
+		}
+		h2 {
+			top: 30px;
+			font-size: 1em;
+		}
+		.hover {
+			fill: yellow;  
+		}
+
+	</style>
+
+
+  </head>
 
  
 
     <body>
 
- 
+ <h1>StarTran route number guide </h1>
+    <h2></h2>
 
         <script>
 
@@ -28,10 +53,10 @@
 
 			//create the SVG
 
-		var svg = d3.select( "body" )
-			.append( "svg" )
-			.attr( "width", width )
-			.attr( "height", height );
+			var svg = d3.select( "body" )
+				.append( "svg" )
+				.attr( "width", width )
+				.attr( "height", height );
 
        
 
@@ -43,55 +68,49 @@
 
 // Set Projection Parameters
 
-var albersProjection = d3.geoAlbers()
-    .scale( 200000 )
-    .rotate( [96.6327,0] )
-    .center( [0, 40.8497493] )   
-    .translate( [width/2,height/2] );
+		var albersProjection = d3.geoAlbers()
+			.scale( 200000 )
+			.rotate( [96.6600,0] )
+			.center( [0, 40.8137493] )   
+			.translate( [width/2,height/2] );
 
-var geoPath = d3.geoPath()
-    .projection( albersProjection );
+		var geoPath = d3.geoPath()
+			.projection( albersProjection );
 
- g.selectAll( "path" )
-    .data( background.features )
-    .enter()
-    .append( "path" )
-    .attr( "fill", "#ccc" )
-    .attr( "stroke", "#333")
-    .attr( "d", geoPath );
+		g.selectAll( "path" )
+			.data( background.features )
+			.enter()
+			.append( "path" )
+			.attr( "fill", "#ccc" )
+			.attr( "stroke", "#333")
+			.attr( "d", geoPath );
 
      
 
-var background1 = svg.append( "g" );
+		var background1 = svg.append( "g" );
 
-background1.selectAll( "path" )
+		background1.selectAll( "path" )
 			.data( unlBusStop.features )
 			.enter()
 			.append( "path" )
 			.attr( "fill", "#900")
 			.attr( "stroke", "#999")
 			.attr( "d", geoPath )
+			//---
+			.attr("class","buildingdata")
+			.on("mouseover", function(d){
+
+ //populate h2 with "built in" & the year built field from the json
+				d3.select("h2").text("This stop serves the route : " + d.properties.Route_Numb);
+				d3.select(this).attr("class","buildingdata hover");
+						})
+
+//here, D3 to replace text interactively based on building data
+				.on("mouseout", function(d){
+					d3.select("h2").text("");
+					d3.select(this).attr("class","buildingdata");
 			
-			
-var background2 = svg.append( "g" );
-
-background2.selectAll( "path" )
-			.data( broute.features )
-			.enter()
-			.append( "path" )
-			.attr( "fill", "#cfe1f2")
-			.attr( "stroke", "#999")
-			.attr( "d", geoPath )
-
-var background3 = svg.append( "g" );
-
-background3.selectAll( "path" )
-			.data( bus.features )
-			.enter()
-			.append( "path" )
-			.attr( "fill", "#08306b")
-			.attr( "stroke", "#999")
-			.attr( "d", geoPath )
+				});
 
 
 
@@ -102,4 +121,4 @@ background3.selectAll( "path" )
 
 </html>
 
- ["#f7fbff","#e3eef9","#cfe1f2","#b5d4e9","#93c3df","#6daed5","#4b97c9","#2f7ebc","#1864aa","#0a4a90","#08306b"]
+ 
