@@ -22,16 +22,18 @@
 
       require(["esri/Map",
 	  "esri/layers/TileLayer",
-	  "esri/views/MapView"], function(Map, TileLayer,MapView) {
+	  "esri/views/MapView,
+	   esri/views/MapImageLayer"], function(Map, TileLayer,MapView, MapImageLayer) {
 
         var map = new Map({
 
           basemap: "Streets"
-
+	  layer:[Radarlayer]	
         });
-		var thebasemap = new TileLayer({
-		url:"https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/radar_meteo_imagery_nexrad_time/MapServer"
-
+		var Radarlayer = new MapImageLayer({
+		url:"https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/radar_meteo_imagery_nexrad_time/MapServer",
+		format:"jpgpng"
+		
 		});
  
 
