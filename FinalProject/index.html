@@ -24,18 +24,18 @@
 	  "esri/views/MapView",
 	  "esri/layers/MapImageLayer"], function(Map, MapView, MapImageLayer) {
 	
-	  var map = new Map({
-          basemap: "streets",
-	  layers: [Radarlayer]	
-        });
-        
+	
 	var Radarlayer = new MapImageLayer({
 	url:"https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/radar_meteo_imagery_nexrad_time/MapServer",
 	format: "jpgpng"
 	
 	});
  
-	
+	 var map = new Map({
+         basemap: "streets",
+	 layers: [Radarlayer]	
+        });
+        
         
 	var view = new MapView({
 
@@ -43,7 +43,7 @@
 
           map: map,
 
-          zoom: 1,
+          zoom: 2,
 
           center: [-96.68, 40.81] // longitude, latitude – change this as needed
 
