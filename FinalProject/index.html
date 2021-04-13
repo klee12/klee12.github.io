@@ -23,7 +23,11 @@
       require(["esri/Map",
 	  "esri/views/MapView",
 	  "esri/layers/MapImageLayer"], function(Map, MapView, MapImageLayer) {
-
+	
+	  var map = new Map({
+          basemap: "Streets",
+	  layers: [Radarlayer]	
+        });
         
 	var Radarlayer = new MapImageLayer({
 	url:"https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/radar_meteo_imagery_nexrad_time/MapServer",
@@ -31,10 +35,7 @@
 	
 	});
  
-	var map = new Map({
-          basemap: "Streets",
-	  layers: [Radarlayer]	
-        });
+	
         
 	var view = new MapView({
 
