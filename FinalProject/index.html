@@ -24,18 +24,19 @@
 	  "esri/views/MapView",
 	  "esri/views/MapImageLayer"], function(Map, MapView, MapImageLayer) {
 
-        var map = new Map({
+        
+	var Radarlayer = new MapImageLayer({
+	url:"https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/radar_meteo_imagery_nexrad_time/MapServer",
+	format:"jpgpng"
+	
+	});
+ 
+	var map = new Map({
           basemap: "Streets",
 	  layers: [Radarlayer]	
         });
-		var Radarlayer = new MapImageLayer({
-		url:"https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/radar_meteo_imagery_nexrad_time/MapServer",
-		format:"jpgpng"
-		
-		});
- 
-
-        var view = new MapView({
+        
+	var view = new MapView({
 
           container: "viewDiv",
 
