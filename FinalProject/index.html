@@ -22,8 +22,27 @@
 
       require(["esri/Map",
 	  "esri/views/MapView",
-	  "esri/layers/MapImageLayer"], function(Map, MapView, MapImageLayer) {
+	  "esri/layers/GeoJSONLayer",
+	  "esri/layers/MapImageLayer"], function(Map, MapView,GeoJSONLayer, MapImageLayer) {
 	
+	const url = "https://opendata.arcgis.com/datasets/85c59fe951504e9b9919e24d7a684084_3.geojson";
+	
+	const template = {
+        title: "US Radar Info",
+        content: "This is the {siteID} radar, located at {siteName}. The antenna elevation: {antennaElevation}",
+       
+      };
+	  
+	  const renderer = {
+        type: "simple",
+        field: "mag",
+		symbol: {
+          type: "simple-marker",
+          color: "blue",
+		outline: {
+            color: "white"
+          }
+        }};
 	
 	var Radarlayer = new MapImageLayer({
 	url:"https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/radar_meteo_imagery_nexrad_time/MapServer",
@@ -31,9 +50,49 @@
 	
 	});
  
-	 var map = new Map({
+	var Lightninglayer = new MapImageLayer({
+	url:"https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/sat_meteo_emulated_imagery_lightningstrikedensity_goes_time/MapServer",
+	format: "jpgpng"
+	
+	});
+	
+	var sstlayer = new MapImageLayer({
+	url:"https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/analysis_ocean_sfc_sst_time/MapServer",
+	format: "jpgpng"
+	
+	});
+	
+	
+	var blocation = new MapImageLayer({
+	url:"https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/obs_meteocean_insitu_sfc_time/MapServer",
+	format: "jpgpng"
+	
+	});
+	
+	
+	
+	
+	var satellitelayer = new MapImageLayer({
+	url:"https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/sat_meteo_imagery_time/MapServer",
+	format: "jpgpng"
+	
+	});
+		
+	
+	
+	
+	
+	const geojsonLayer = new GeoJSONLayer({
+		url: url,
+		copyright: "GEOG 417/817 Kun-Yuan Lee",
+		popupTemplate: template,
+		renderer:renderer
+		});
+	
+	
+	var map = new Map({
          basemap: "streets",
-		 layers: [Radarlayer]	
+		 layers: [sstlayer,blocation,Radarlayer,geojsonLayer, Lightninglayer]	
         });
         
         
