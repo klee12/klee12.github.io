@@ -44,8 +44,8 @@
         
 
       var map = L.map('map', {
-         center: [38.9072, -77.0369],
-         zoom: 14,
+         center: [38.9072, -90.0369],
+         zoom: 5,
          layers: [basemap]
          });
 
@@ -57,7 +57,7 @@
         if (feature.properties) {
           var prop = feature.properties;
           // make a cool little html popup with properties
-            var popup = '<h3>'+prop['FNAME']+' '+prop['LNAME']+'</h3>'+'<strong>Slave Owner? </strong>'+prop['SLAVEOWNER']+' '+'<br><strong>Occupation: </strong>'+prop['OCCUPATION']+'<br><strong>Age: </strong>'+prop['AGE']+'<br><strong>Home address: </strong>'+prop['ADDRESS']+'<br><br><i>Note: details from Census Bureau and city directories</i>';
+            var popup = '<h3>'+' '+prop['name']+'</h3>'+'<strong>Time </strong>'+prop['time']+' '+'<br><strong>Latitude: </strong>'+prop['latitude']+'<br><strong>Longtitude </strong>'+prop['longitude']+'<br><br><i>Note: details from Census Bureau and city directories</i>';
             // add known info about event to the description
 
          
@@ -104,7 +104,7 @@
 
       };
 	  
-	      var firstlayer = L.geoJson(bringDataGeoJson, {
+	      var firstlayer = L.geoJson(bringData, {
         // add popups
         onEachFeature: onEachFeature,
         pointToLayer: function(feature, latlng) {
@@ -114,7 +114,7 @@
 
  
 
-      var timelineLayer = L.geoJson(bringDataGeoJson, {
+      var timelineLayer = L.geoJson(bringData, {
         onEachFeature: onEachFeature,
         pointToLayer: function(feature, latlng) {
           return L.circleMarker(latlng, orangeCircleMarkers);
@@ -125,7 +125,7 @@
 
       // now make a timeline layer that the slider can manipulate
 
-      var searchLayer = L.geoJson(bringDataGeoJson, {
+      var searchLayer = L.geoJson(bringData, {
         onEachFeature: onEachFeature,
         pointToLayer: function(feature, latlng) {
           return L.circleMarker(latlng, greenCircleMarkers);
@@ -146,7 +146,7 @@
       var searchOptions = {
         position: 'topleft',
         title: 'Search',
-        placeholder: 'Example: John Smith',
+        placeholder: 'Example: Home Theatre',
         maxResultLength: 10,
         caseSensitive: false,
         showInvisibleFeatures: true,
@@ -155,11 +155,11 @@
         showResultFct: function(feature, container) {
           props = feature.properties;
           var name = L.DomUtil.create('b', null, container);
-          name.innerHTML = props.LNAME;
+          name.innerHTML = props.name;
           container.appendChild(L.DomUtil.create('br', null, container));
  
 
-          var cat = props.LNAME ? props.FNAME : props.OCCUPATION,
+          var cat = props.name ? props.name : props.name,
               info = cat;
           container.appendChild(document.createTextNode(info));
         }
@@ -167,10 +167,10 @@
 
       var searchControl = L.control.fuseSearch(searchOptions);
       map.addControl(searchControl);
-      searchControl.indexFeatures(bringDataGeoJson, ['LNAME']);
+      searchControl.indexFeatures(bringData,['name']);
  
 
-      displayFeatures(bringDataGeoJson, searchLayer);
+      displayFeatures(bringData, searchLayer);
 
  
       function displayFeatures(features, layer) {
