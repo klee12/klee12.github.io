@@ -19,7 +19,7 @@
       <script src="https://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
       <link rel="stylesheet" href="https://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" type="text/css">
       <script src="https://dsps.lib.uiowa.edu/placing/public/jqueryUiTouchPunch-0.2.2/jquery.ui.touch-punch.min.js"></script>
-      <script src="https://dsps.lib.uiowa.edu/placing/rich.js"></script>
+      <script src="https://klee12.github.io/Lab7p2/bringData.geojson"></script>
 
          <link rel="stylesheet" type="text/css" href="https://dsps.lib.uiowa.edu/placing/css/style.css">
          <link rel="stylesheet" type="text/css" href="https://dsps.lib.uiowa.edu/placing/css/navwrap.css">
@@ -104,7 +104,7 @@
 
       };
 	  
-	      var firstlayer = L.geoJson(richGeoJson, {
+	      var firstlayer = L.geoJson(bringDataGeoJson, {
         // add popups
         onEachFeature: onEachFeature,
         pointToLayer: function(feature, latlng) {
@@ -114,7 +114,7 @@
 
  
 
-      var timelineLayer = L.geoJson(richGeoJson, {
+      var timelineLayer = L.geoJson(bringDataGeoJson, {
         onEachFeature: onEachFeature,
         pointToLayer: function(feature, latlng) {
           return L.circleMarker(latlng, orangeCircleMarkers);
@@ -125,7 +125,7 @@
 
       // now make a timeline layer that the slider can manipulate
 
-      var searchLayer = L.geoJson(richGeoJson, {
+      var searchLayer = L.geoJson(bringDataGeoJson, {
         onEachFeature: onEachFeature,
         pointToLayer: function(feature, latlng) {
           return L.circleMarker(latlng, greenCircleMarkers);
@@ -167,10 +167,10 @@
 
       var searchControl = L.control.fuseSearch(searchOptions);
       map.addControl(searchControl);
-      searchControl.indexFeatures(richGeoJson, ['LNAME']);
+      searchControl.indexFeatures(bringDataGeoJson, ['LNAME']);
  
 
-      displayFeatures(richGeoJson, searchLayer);
+      displayFeatures(bringDataGeoJson, searchLayer);
 
  
       function displayFeatures(features, layer) {

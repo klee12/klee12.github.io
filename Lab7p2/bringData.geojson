@@ -1,4 +1,4 @@
-var bingData = {
+var bringData = {
 "type": "FeatureCollection",
 "name": "bringData",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::3857" } },
