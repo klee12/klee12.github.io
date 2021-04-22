@@ -80,6 +80,20 @@
 		
 	
 	
+	var convectivelayer = new MapImageLayer({
+	url:"https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/guidance_natlcenters_meteoceanhydro_outlooks_time/MapServer",
+	format: "jpgpng"
+	
+	});
+	
+	
+	
+	
+	var sfctemplayer = new MapImageLayer({
+	url:"https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/forecast_meteoceanhydro_sfc_ndfd_qpf6hrs_offsets/MapServer",
+	format: "jpgpng"
+	
+	});
 	
 	
 	const geojsonLayer = new GeoJSONLayer({
@@ -92,7 +106,7 @@
 	
 	var map = new Map({
          basemap: "streets",
-		 layers: [sstlayer,blocation,Radarlayer,geojsonLayer, Lightninglayer]	
+		 layers: [sstlayer,sfctemplayer,blocation,Radarlayer,geojsonLayer, Lightninglayer]	
         });
         
         
