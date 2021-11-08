@@ -50,7 +50,19 @@
     value >= 0  ? '#ffffbf':
                   '#b2182b';
             }
-			
+	
+		
+	var minValue = 1;
+	var minRadius = 4;
+	
+        var timeline;
+      var timelineControl;
+      function calcRadius(val){
+		return 1.0083*Math.pow(val/minValue,.5716)*minRadius;
+		}
+	
+
+	
       var background = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-background/{z}/{x}/{y}{r}.{ext}', {
 	attribution: '',
 	subdomains: 'abcd',
@@ -112,6 +124,6 @@
 	  
 
     </script>
-    <script src="https://electionmaps.github.io/elect.jsonp"></script>
+    <script src="https://klee12.github.io/Fall2021GEOG825/lab7/NewMapState.jsonp"></script>
   </body>
 </html>
