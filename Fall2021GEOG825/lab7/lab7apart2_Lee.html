@@ -60,7 +60,13 @@
       function calcRadius(val){
 		return 1.0083*Math.pow(val/minValue,.5716)*minRadius;
 		}
-	
+	   
+	   var minValue = 1;
+	   var minRadius = 4;
+	   
+	   function calcRadius(val){
+	   return 1.0083*Math.pow(val/minValue,.5716)*minRadius;
+	   }
 
 	
       var background = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-background/{z}/{x}/{y}{r}.{ext}', {
@@ -107,7 +113,7 @@
           pointToLayer: function (data, latlng) {
             var diff = (data.properties.DIFF);
             return L.circleMarker(latlng, {
-              radius: data.properties.EV,
+              calcRadius(data.properties.EV_EV),
               color: getColorFor(data.properties.DIFF),
               fillColor: getColorFor(data.properties.DIFF),
             }).bindPopup('<p>' + 'Electoral votes:' + data.properties.EV + '</p>');
@@ -124,6 +130,6 @@
 	  
 
     </script>
-    <script src="https://klee12.github.io/Fall2021GEOG825/lab7/NewMapState.jsonp"></script>
+    <script src="https://klee12.github.io/Fall2021GEOG825/lab7/NewCent.jsonp"></script>
   </body>
 </html>
