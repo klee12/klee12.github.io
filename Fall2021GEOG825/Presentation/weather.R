@@ -1,0 +1,99 @@
+library(leaflet)
+library(htmltools)
+library(htmlwidgets)
+library(leaflet.esri)
+library(leaflet.extras)
+
+
+radar = "https://opendata.arcgis.com/datasets/85c59fe951504e9b9919e24d7a684084_3.geojson"
+rlayer <- geojsonio::geojson_read("https://opendata.arcgis.com/datasets/85c59fe951504e9b9919e24d7a684084_3.geojson", what = "sp")
+sat <- "https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/sat_meteo_imagery_time/MapServer"
+sst <-"https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/analysis_ocean_sfc_sst_time/MapServer"
+covlayer <- "https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/guidance_natlcenters_meteoceanhydro_outlooks_time/MapServer"
+sfc6 <-"https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/forecast_meteoceanhydro_sfc_ndfd_qpf6hrs_offsets/MapServer"
+sfctemp <- "https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/obs_meteocean_insitu_sfc_time/MapServer"
+dailym <- "https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/forecast_meteoceanhydro_sfc_ndfd_dailymaxairtemp_offsets/MapServer"
+
+leaflet() %>%
+  setView(lng = -96.7026, lat = 40.8136, zoom = 5) %>%
+  addTiles(group = "baselayer") %>%addEsriDynamicMapLayer(url = sst, group = "SST")%>%
+  addWMSTiles("http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi",
+    layers = "nexrad-n0r-900913",
+    options = WMSTileOptions(format = "image/png", transparent = TRUE),
+    group = "Radar" ) %>%
+  
+  addEsriDynamicMapLayer(url = radar, group = "radar Location") %>%
+  addCircles(data = rlayer,color = "red",label = rlayer$siteName, popup =rlayer$siteID ,
+             radius = 5000,stroke = FALSE,fillOpacity = 0.9,group = "88-D Radar Station") %>% 
+  
+  addEsriDynamicMapLayer(url = sfc6, group = "6-hour Quantitative Precipitation Amount") %>%
+  addEsriDynamicMapLayer(url = dailym, group = "daily maxium temperature") %>%
+  addEsriDynamicMapLayer(url = sfctemp, group = "surface observation") %>%
+  addEsriDynamicMapLayer(url = covlayer, group = "Convective Layer") %>%
+  addEsriDynamicMapLayer(url = sat, group = "Visiable satellite") %>%
+  addLayersControl(baseGroups = "World Map",
+    overlayGroups = c("Radar", "SST","Visiable satellite","daily maxium temperature","88-D Radar Station","Current temperature" ,"Convective Layer", "surface observation", "6-hour Quantitative Precipitation Amount"),
+    options = layersControlOptions(collapsed = TRUE)
+  )%>% addTerminator()%>%addMiniMap(toggleDisplay = TRUE)%>%
+  addMeasure(
+    position = "bottomleft",
+    primaryLengthUnit = "meters",
+    primaryAreaUnit = "sqmeters",
+    activeColor = "#3D535D",
+    completedColor = "#7D4479")
+
+
+
+
+
+
+
+
+
+
+leaflet() %>%addTiles() %>% 
+  addEsriDynamicMapLayer(Airob,layerId = 10)
+    
+
+
+leaflet() %>%
+  addEsriTiledMapLayer(
+    url = "https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/obs_meteocean_insitu_sfc_time/MapServer")
+
+leaflet() %>%
+  addEsriImageMapLayer(
+    url = "https://opendata.arcgis.com/datasets/85c59fe951504e9b9919e24d7a684084_3.geojson")
+
+
+
+
+
+
+names(rlayer)
+m <- leaflet(rlayer) %>%
+  setView(-96, 37.8, 4) %>%
+  addProviderTiles("MapBox", options = providerTileOptions(
+    id = "mapbox.light",
+    accessToken = Sys.getenv('MAPBOX_ACCESS_TOKEN')))
+
+m <- leaflet(rlayer) %>%
+  setView(-96, 37.8, 4) %>%
+  addTiles() 
+
+test <- rgdal::readOGR("https://opendata.arcgis.com/datasets/85c59fe951504e9b9919e24d7a684084_3.geojson")
+test
+
+url <- "https://opendata.arcgis.com/datasets/85c59fe951504e9b9919e24d7a684084_3.geojson"
+geojson <- jsonlite::fromJSON(url)
+library("leaflet")
+leaflet(test) %>% 
+  addTiles() %>%plot(test, col="grey")
+  
+
+plot(rlayer)
+leaflet(rlayer)
+
+leaflet() %>%  addTiles %>% addCircles(data = rlayer,color = "red",label = "radar rlayer$siteID" rlayer$siteID, popup = rlayer$siteName,
+                                       radius = 5000,stroke = FALSE,fillOpacity = 0.9,group = "fish")
+
+
