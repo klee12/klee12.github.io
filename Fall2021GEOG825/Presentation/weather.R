@@ -27,12 +27,12 @@ leaflet() %>%
              radius = 5000,stroke = FALSE,fillOpacity = 0.9,group = "88-D Radar Station") %>% 
   
   addEsriDynamicMapLayer(url = sfc6, group = "6-hour Quantitative Precipitation Amount") %>%
-  addEsriDynamicMapLayer(url = dailym, group = "daily maxium temperature") %>%
+  addEsriDynamicMapLayer(url = dailym,group = "daily maxium temperature") %>%
   addEsriDynamicMapLayer(url = sfctemp, group = "surface observation") %>%
   addEsriDynamicMapLayer(url = covlayer, group = "Convective Layer") %>%
   addEsriDynamicMapLayer(url = sat, group = "Visiable satellite") %>%
   addLayersControl(baseGroups = "World Map",
-    overlayGroups = c("Radar", "SST","Visiable satellite","daily maxium temperature","88-D Radar Station","Current temperature" ,"Convective Layer", "surface observation", "6-hour Quantitative Precipitation Amount"),
+    overlayGroups = c("Radar", "SST","Visiable satellite","daily maxium temperature","88-D Radar Station" ,"Convective Layer", "surface observation", "6-hour Quantitative Precipitation Amount"),
     options = layersControlOptions(collapsed = TRUE)
   )%>% addTerminator()%>%addMiniMap(toggleDisplay = TRUE)%>%
   addMeasure(
