@@ -58,16 +58,23 @@
     Click on the map to post an edit.<br>
     Click on a marker to remove it.
     <select id="symbols">
-      <option value="Air Control Point">Air Control Point</option>
-      <option value="Decision Point">Decision Point</option>
-      <option value="Unmanned Aerial System (UAS UA)">Unmanned Aerial System (UAS UA)</option>
+      <option value="Air Control Point">Aerial control points</option>
+      <option value="Decision Point">Star</option>
+      <option value="Unmanned Aerial System (UAS UA)">UAS symbol</option>
     </select>
   </label>
 </div>
 
 <script>
   // create the map
-  var map = L.map('map').setView([65, -18.5], 6);
+  var Location = L.marker([40.8197, -96.7035]).bindPopup('This is where Dr. Shepard,s office (old father hall).'),
+		class1    = L.marker([40.819340, -96.7030]).bindPopup('This is where we have for the class. '),
+		scap    = L.marker([40.8081, -96.6997]).bindPopup('This is the state captial.'),
+		eastCampus    = L.marker([40.8299, -96.6675]).bindPopup('This is the east campus union.'); 
+		 
+		var cities = L.layerGroup([Location, class1,scap, eastCampus]);
+  
+  
 
       
 
@@ -78,18 +85,30 @@
           maxZoom: 20,
           ext: 'png'
 
-        }).addTo(map);
-  
-  
+        });//.addTo(map);
+		
+		var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom: 19,
+		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+		});
+		
+		var OpenTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+		maxZoom: 17,
+		attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+		});
+		var OPNVKarte = L.tileLayer('https://tileserver.memomaps.de/tilegen/{z}/{x}/{y}.png', {
+		maxZoom: 18,
+		attribution: 'Map <a href="https://memomaps.de/">memomaps.de</a> <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+		});
+		 
+	 
+	
+  var map = L.map('map',{layers: [canvas, cities]}).setView([40.8136, -96.7026], 13);	
 
   // add our feature layer to the map
   const militaryOps = L.esri.featureLayer({
     url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/Military/FeatureServer/3'
-    }).addTo(map);
-
- 
-
-
+    });
 
 
 
@@ -123,6 +142,24 @@
     // make sure map click event isn't fired.
     L.DomEvent.stopPropagation(e);
   });
+  
+ var baseMaps = {
+    "plain Map": canvas,
+    };
+
+
+ var overlayMaps = {
+    "Useful Information": cities,
+	"Open Street Map": OpenStreetMap_Mapnik,
+    "Open Tool Map": OpenTopoMap,
+    "Major Airport": OPNVKarte,
+	"Hand drawing": militaryOps
+};
+  
+  
+  
+  
+  L.control.layers(baseMaps, overlayMaps,{position: 'topleft'}).addTo(map);	
 </script>
 
 </body>
