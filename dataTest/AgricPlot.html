@@ -117,6 +117,12 @@ var imageUrl = 'http://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg',
 
 L.imageOverlay(imageUrl, imageBounds).addTo(map);
 
+ 	 L.control.scale({
+			metric:false,
+			imperial: true,
+			position: 'topright'
+			}).addTo(map);
+		
      // var timelineLayer = L.geoJson(bringData, {
        // onEachFeature: onEachFeature,
         //pointToLayer: function(feature, latlng) {
@@ -217,12 +223,7 @@ L.imageOverlay(imageUrl, imageBounds).addTo(map);
      
          L.control.layers(overlays, baseMaps, {collapsed:false}).addTo(map);
          
-		 L.control.scale({
-			metric:false,
-			imperial: true,
-			position: 'topright'
-			}).addTo(map);
-		
+	
 		// L.Control.Watermark = L.Control.extend({
 		 //onAdd:function(map){
 		 
