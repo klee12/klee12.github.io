@@ -4,7 +4,7 @@
 
 <head>
 
-    <title>Lab 7 part 2.2</title>
+    <title>AgriCapture Inc</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -19,7 +19,7 @@
       <script src="https://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
       <link rel="stylesheet" href="https://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" type="text/css">
       <script src="https://dsps.lib.uiowa.edu/placing/public/jqueryUiTouchPunch-0.2.2/jquery.ui.touch-punch.min.js"></script>
-      <script src="https://AgriCapture.github.io/Lab7p2/SEP_FARMS.geojson"></script>
+      <script src="https://klee12.github.io/dataTest/SEP_FARMS.geojson"></script>
 
          <link rel="stylesheet" type="text/css" href="https://dsps.lib.uiowa.edu/placing/css/style.css">
          <link rel="stylesheet" type="text/css" href="https://dsps.lib.uiowa.edu/placing/css/navwrap.css">
@@ -57,7 +57,7 @@
         if (feature.properties) {
           var prop = feature.properties;
           // make a cool little html popup with properties
-            var popup = '<h3>'+' '+prop['name']+'</h3>'+'<strong>Time </strong>'+prop['time']+' '+'<br><strong>Latitude: </strong>'+prop['latitude']+'<br><strong>Longtitude </strong>'+prop['longitude']+'<br><br><i>Note: details from Census Bureau and city directories</i>';
+            var popup = '<h3>'+' '+prop['FIELD_ID']+'</h3>'+'<strong>Time </strong>'+prop['time']+' '+'<br><strong>Latitude: </strong>'+prop['latitude']+'<br><strong>Longtitude </strong>'+prop['longitude']+'<br><br><i>Note: details from Census Bureau and city directories</i>';
             // add known info about event to the description
 
          
@@ -107,7 +107,7 @@
 	      var firstlayer = L.geoJson(SEP_FARMS, {
         // add popups
         onEachFeature: onEachFeature,
-        pointToLayer: function(feature, latlng) {
+        style: function(feature, latlng) {
           return L.circleMarker(latlng, blueCircleMarkers);
         }
       }).addTo(map);
