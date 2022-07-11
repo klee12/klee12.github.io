@@ -216,14 +216,24 @@ L.imageOverlay(imageUrl, imageBounds).addTo(map);
                     };
      
          L.control.layers(overlays, baseMaps, {collapsed:false}).addTo(map);
-         L.control.Watermark = L.control.extend({
-		 onAdd:function(map){},
-			var image = L.DomUtil.create('img');
+         
+		 L.control.scale({
+			metric:false,
+			imperial: true,
+			position: 'topright'
+			}).addTo(map);
+		
+		 L.Control.Watermark = L.Control.extend({
+		 onAdd:function(map){
+		 
+ 		    var img = L.DomUtil.create('img');
 			img.src = 'https://github.com/klee12/AgriCapture/blob/main/AgriIcon/agIcon.jpg'
 			img.style.width = '200px';
 			return img;
-            }
-         L.control.watermark().addTo(map); 		
+            },
+			onRemove:function(map){},
+			});
+         L.control.Watermark().addTo(map); 		
 		 
     </script>
 
