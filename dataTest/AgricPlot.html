@@ -193,10 +193,10 @@ L.imageOverlay(imageUrl, imageBounds).addTo(map);
 
       var searchControl = L.control.fuseSearch(searchOptions);
       map.addControl(searchControl);
-      searchControl.indexFeatures(bringData,['name']);
+      searchControl.indexFeatures(SEP_FARMS,['name']);
  
 
-      displayFeatures(bringData, searchLayer);
+      displayFeatures(SEP_FARMS, searchLayer);
 
  
       function displayFeatures(features, layer) {
