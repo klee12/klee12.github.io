@@ -151,12 +151,12 @@ L.imageOverlay(imageUrl, imageBounds).addTo(map);
 
       // now make a timeline layer that the slider can manipulate
 
-     // var searchLayer = L.geoJson(bringData, {
-       // onEachFeature: onEachFeature,
-        //pointToLayer: function(feature, latlng) {
-          //return L.circleMarker(latlng, greenCircleMarkers);
-        //}
-      //});
+      var searchLayer = L.geoJson(SEP_FARMS, {
+        onEachFeature: onEachFeature,
+        style: function(feature, latlng) {
+          return L.circleMarker(latlng, greenCircleMarkers);
+        }
+      });
 	  
 	  
 	//  var sliderControl = L.control.sliderControl({
@@ -172,7 +172,7 @@ L.imageOverlay(imageUrl, imageBounds).addTo(map);
       var searchOptions = {
         position: 'topleft',
         title: 'Search',
-        placeholder: 'Example: Home Theatre',
+        placeholder: 'Example: Farm Name',
         maxResultLength: 10,
         caseSensitive: false,
         showInvisibleFeatures: true,
