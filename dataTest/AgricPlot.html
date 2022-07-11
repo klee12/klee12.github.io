@@ -178,8 +178,8 @@ L.imageOverlay(imageUrl, imageBounds).addTo(map);
         showInvisibleFeatures: true,
         layerToToggle: searchLayer,
         threshold: 0.5, // default is .5, will match imperfect results
-        showResultFct: function(feature, container) {
-          props = feature.properties;
+        showResultFct: function(Feature, container) {
+          props = Feature.properties;
           var STATE = L.DomUtil.create('b', null, container);
           STATE.innerHTML = props.STATE;
           container.appendChild(L.DomUtil.create('br', null, container));
