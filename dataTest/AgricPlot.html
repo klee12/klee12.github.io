@@ -228,8 +228,6 @@ L.imageOverlay(imageUrl, imageBounds).addTo(map);
         //return layer;
       //};
 
-
-
                 //    var overlays = {
                   //  "People occupation": firstlayer
          //};
@@ -240,7 +238,24 @@ L.imageOverlay(imageUrl, imageBounds).addTo(map);
      
      //    L.control.layers(overlays, baseMaps, {collapsed:false}).addTo(map);
          
-	
+	map.setView([48.85, 2.35], 12);
+
+var marker, popupContent;
+
+for (var i = 0; i < 1; i += 1) {
+    marker = L.marker([48.85, 2.35]).addTo(map);
+  popupContent = document.createElement("img");
+  popupContent.onload = function () {
+    marker.openPopup();
+  };
+  popupContent.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Stack_Exchange_logo_and_wordmark.svg/375px-Stack_Exchange_logo_and_wordmark.svg.png";
+  //popupContent = '<img src="http://c4.staticflickr.com/1/691/21131215939_49601d06ef_b.jpg" />';
+  marker.bindPopup(popupContent, {
+    maxWidth: "auto"
+  });
+}
+
+marker.openPopup();
 		
 		 
     </script>
