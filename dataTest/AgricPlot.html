@@ -118,12 +118,12 @@
 			position: 'topright'
 			}).addTo(map);
 			
-		L.control.watermark = L.control.extend({
-		 onAdd:function(map){
+		L.Control.Watermark = L.Control.extend({
+			onAdd: function(map) {
 		 
- 		    var img = L.DomUtil.create('img');
-			img.src = 'agIcon.png'
-			img.style.width = '500px';
+ 		   var img = L.DomUtil.create('img');
+			img.src = 'agIcon.png';
+			img.style.width = '50px';
 			return img;
             },
 			onRemove:function(map){},
