@@ -180,8 +180,8 @@ L.imageOverlay(imageUrl, imageBounds).addTo(map);
         threshold: 0.5, // default is .5, will match imperfect results
         showResultFct: function(Feature, container) {
           props = Feature.properties;
-          var STATE = L.DomUtil.create('b', null, container);
-          STATE.innerHTML = props.STATE;
+          var name = L.DomUtil.create('b', null, container);
+          name.innerHTML = props.STATE;
           container.appendChild(L.DomUtil.create('br', null, container));
  
 
