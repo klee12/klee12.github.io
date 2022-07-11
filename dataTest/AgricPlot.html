@@ -169,74 +169,74 @@ L.imageOverlay(imageUrl, imageBounds).addTo(map);
   //    sliderControl.startSlider(); // initialize
 
 
-      var searchOptions = {
-        position: 'topleft',
-        title: 'Search',
-        placeholder: 'Example: Farm Name',
-        maxResultLength: 10,
-        caseSensitive: false,
-        showInvisibleFeatures: true,
-        layerToToggle: searchLayer,
-        threshold: 0.5, // default is .5, will match imperfect results
-        showResultFct: function(Feature, container) {
-          props = Feature.properties;
-          var name = L.DomUtil.create('b', null, container);
-          name.innerHTML = props.STATE;
-          container.appendChild(L.DomUtil.create('br', null, container));
+    //  var searchOptions = {
+      //  position: 'topleft',
+       // title: 'Search',
+        //placeholder: 'Example: Farm Name',
+       // maxResultLength: 10,
+        //caseSensitive: false,
+        //showInvisibleFeatures: true,
+        //layerToToggle: searchLayer,
+        //threshold: 0.5, // default is .5, will match imperfect results
+        //showResultFct: function(Feature, container) {
+         // props = Feature.properties;
+         // var name = L.DomUtil.create('b', null, container);
+         // name.innerHTML = props.STATE;
+         // container.appendChild(L.DomUtil.create('br', null, container));
  
 
-          var cat = props.name ? props.name : props.name ,
-              info = cat;
-          container.appendChild(document.createTextNode(info));
-        }
-      };
+          //var cat = props.name ? props.name : props.name ,
+            //  info = cat;
+          //container.appendChild(document.createTextNode(info));
+        //}
+      //};
 
-      var searchControl = L.control.fuseSearch(searchOptions);
-      map.addControl(searchControl);
-      searchControl.indexFeatures(SEP_FARMS,['STATE']);
+      //var searchControl = L.control.fuseSearch(searchOptions);
+      //map.addControl(searchControl);
+      //searchControl.indexFeatures(SEP_FARMS,['STATE']);
  
 
-      displayFeatures(SEP_FARMS, searchLayer);
+      //displayFeatures(SEP_FARMS, searchLayer);
 
  
-      function displayFeatures(features, layer) {
-        var popup = L.DomUtil.create('div', 'tiny-popup', map.getContainer());
-        for (var id in features) {
-          var feat = features[id];
-          var cat = feat.properties.categorie;
-          var site = L.geoJson(feat, {
-            pointToLayer: function(feature, latLng) {
-              var marker = L.marker(latLng, {
-                        icon: orangeCircleMarkers,
-                keyboard: false,
-                riseOnHover: true
-              });
-              if (! L.touch) {
-                marker.on('mouseover', function(position) {
-                }).on('mouseout', function(position) {
-                  L.DomUtil.removeClass(popup, 'visible');
-                });
-              }
-              return marker;
-            },
-            onEachFeature: onEachFeature
-          });
-          if (layer !== undefined) {
-              layer.addLayer(site);
-          }
-        }
-        return layer;
-      };
+      //function displayFeatures(features, layer) {
+       // var popup = L.DomUtil.create('div', 'tiny-popup', map.getContainer());
+        //for (var id in features) {
+         // var feat = features[id];
+          //var cat = feat.properties.categorie;
+          //var site = L.geoJson(feat, {
+           // pointToLayer: function(feature, latLng) {
+            //  var marker = L.marker(latLng, {
+              //          icon: orangeCircleMarkers,
+               // keyboard: false,
+               // riseOnHover: true
+              //});
+              //if (! L.touch) {
+               // marker.on('mouseover', function(position) {
+               // }).on('mouseout', function(position) {
+                //  L.DomUtil.removeClass(popup, 'visible');
+                //});
+             // }
+              //return marker;
+            //},
+           // onEachFeature: onEachFeature
+          //});
+          //if (layer !== undefined) {
+           //   layer.addLayer(site);
+         // }
+        //}
+        //return layer;
+      //};
 
 
 
-                    var overlays = {
-                    "People occupation": firstlayer
-         };
+                //    var overlays = {
+                  //  "People occupation": firstlayer
+         //};
 
-                    var baseMaps = {
+              //      var baseMaps = {
                     "Historic": basemap
-                    };
+            //        };
      
          L.control.layers(overlays, baseMaps, {collapsed:false}).addTo(map);
          
