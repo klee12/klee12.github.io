@@ -226,17 +226,17 @@ L.imageOverlay(imageUrl, imageBounds).addTo(map);
          L.control.layers(overlays, baseMaps, {collapsed:false}).addTo(map);
          
 	
-		// L.Control.Watermark = L.Control.extend({
-		 //onAdd:function(map){
+		 L.Control.Watermark = L.Control.extend({
+		 onAdd:function(map){
 		 
- 		   // var img = L.DomUtil.create('img');
-			//img.src = 'aglcon.jpg'
-			//img.style.width = '200px';
-			//return img;
-            //},
-			//onRemove:function(map){},
-			//});
-         //L.control.Watermark().addTo(map); 		
+ 		    var img = L.DomUtil.create('img');
+			img.src = 'aglcon.jpg'
+			img.style.width = '200px';
+			return img;
+            },
+			onRemove:function(map){},
+			});
+         L.control.Watermark().addTo(map); 		
 		 
     </script>
 
