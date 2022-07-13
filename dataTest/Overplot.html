@@ -25,36 +25,63 @@
 	  "esri/layers/GeoJSONLayer",
 	  "esri/layers/FeatureLayer"], function(Map, MapView,GeoJSONLayer, MapImageLayer) {
 	
-	const url = "https://klee12.github.io/dataTest/SEP_FARMS.geojson";
 	
-	const template = {
-        title: "Farm Infromation ",
-        content: "Farmer: {OPERATOR_N}, located at {COUNTY}county,{STATE}, with area of  {Acreage}",
-       
-      };
-	  
-	const layer = new MapImageLayer({
-  url: "https://services6.arcgis.com/KOPkoaVwtLtdXWQf/arcgis/rest/services/SEP_Farms/FeatureServer",
-  sublayers: [
-    {
-      id: 0,
-      renderer: {
-        type: "simple", // autocasts as new SimpleRenderer()
-        symbol: {
-          type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
-          size: 3,
-          color: "black"
-        }
-      }
-    }
-  ]
-});
+	     
 	
 	var Radarlayer = new MapImageLayer({
 	url:"https://services6.arcgis.com/KOPkoaVwtLtdXWQf/arcgis/rest/services/SEP_Farms/FeatureServer",
 	format: "jpgpng"
 	});
  
+ 
+     const layer = new MapImageLayer({
+  url: "https://services6.arcgis.com/KOPkoaVwtLtdXWQf/arcgis/rest/services/SEP_Farms/FeatureServer",
+  sublayers: [
+    {
+      id: 0,
+      // labelingInfo autocasts to an array of LabelClass objects
+      // this sublayer has two label classes. The first sets the
+      // label as the state abbreviation at small scales. When the view
+      // zooms to larger scales the whole state name is used instead
+      labelingInfo: [
+        {
+          labelExpression: "[OPERATOR_N]",
+          labelPlacement: "always-horizontal",
+          symbol: {
+            type: "text", // autocasts as new TextSymbol()
+            color: [255, 255, 255, 0.85],
+            font: {
+              size: 16,
+              weight: "bolder"
+            }
+          },
+          minScale: 18500000,
+          maxScale: 9250000
+        },
+        {
+          labelExpression: "[FARM_NAME]",
+          labelPlacement: "always-horizontal",
+          symbol: {
+            type: "text", // autocasts as new TextSymbol()
+            color: [255, 255, 255, 0.85],
+            haloColor: "gray",
+            haloSize: 1,
+            font: {
+              size: 14,
+              weight: "bold"
+            }
+          },
+          minScale: 9250000,
+          maxScale: 2400000
+        }
+      ]
+    }
+  ]
+});
+ 
+ 
+ 
+      
 	//var Lightninglayer = new MapImageLayer({
 	//url:"https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/sat_meteo_emulated_imagery_lightningstrikedensity_goes_time/MapServer",
 	//format: "jpgpng"
