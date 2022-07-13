@@ -23,7 +23,7 @@
       require(["esri/Map",
 	  "esri/views/MapView",
 	  "esri/layers/GeoJSONLayer",
-	  "esri/layers/MapImageLayer"], function(Map, MapView,GeoJSONLayer, MapImageLayer) {
+	  "esri/layers/FeatureLayer"], function(Map, MapView,GeoJSONLayer, MapImageLayer) {
 	
 	const url = "https://klee12.github.io/dataTest/SEP_FARMS.geojson";
 	
@@ -37,17 +37,17 @@
         type: "simple",
         field: "mag",
 		symbol: {
-          type: "simple-marker",
+          type: "color",
           color: "blue",
 		outline: {
             color: "white"
           }
         }};
 	
-	//var Radarlayer = new MapImageLayer({
-	//url:"https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/radar_meteo_imagery_nexrad_time/MapServer",
-	//format: "jpgpng"
-	//});
+	var Radarlayer = new MapImageLayer({
+	url:"https://services6.arcgis.com/KOPkoaVwtLtdXWQf/arcgis/rest/services/SEP_Farms/FeatureServer",
+	format: "jpgpng"
+	});
  
 	//var Lightninglayer = new MapImageLayer({
 	//url:"https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/sat_meteo_emulated_imagery_lightningstrikedensity_goes_time/MapServer",
@@ -60,22 +60,8 @@
 	//});
 	
 	
-	//var blocation = new MapImageLayer({
-	//url:"https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/obs_meteocean_insitu_sfc_time/MapServer",
-	//format: "jpgpng"
-	//});
-		
-	//var satellitelayer = new MapImageLayer({
-	//url:"https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/sat_meteo_imagery_time/MapServer",
-	//format: "jpgpng"
-	//});
-		
 	
-	
-	//var convectivelayer = new MapImageLayer({
-	//url:"https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/guidance_natlcenters_meteoceanhydro_outlooks_time/MapServer",
-	//format: "jpgpng"
-	//});
+
 		
 	//var sfctemplayer = new MapImageLayer({
 	//url:"https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/forecast_meteoceanhydro_sfc_ndfd_qpf6hrs_offsets/MapServer",
@@ -93,7 +79,7 @@
 	
 	var map = new Map({
          basemap: "streets",
-		 layers: [sstlayer,sfctemplayer,blocation,Radarlayer,geojsonLayer, Lightninglayer]	
+		 layers: [sstlayer,sfctemplayer,Radarlayer,geojsonLayer, Lightninglayer]	
         });
         
         
