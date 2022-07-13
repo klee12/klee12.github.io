@@ -33,16 +33,22 @@
        
       };
 	  
-	  const renderer = {
-        type: "class-break",
-        field: "mag",
-		symbol: {
-          type: "color",
-          color: "blue",
-		outline: {
-            color: "white"
-          }
-        }};
+	const layer = new MapImageLayer({
+  url: "https://services6.arcgis.com/KOPkoaVwtLtdXWQf/arcgis/rest/services/SEP_Farms/FeatureServer",
+  sublayers: [
+    {
+      id: 0,
+      renderer: {
+        type: "simple", // autocasts as new SimpleRenderer()
+        symbol: {
+          type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
+          size: 3,
+          color: "black"
+        }
+      }
+    }
+  ]
+});
 	
 	var Radarlayer = new MapImageLayer({
 	url:"https://services6.arcgis.com/KOPkoaVwtLtdXWQf/arcgis/rest/services/SEP_Farms/FeatureServer",
