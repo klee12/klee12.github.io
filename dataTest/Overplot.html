@@ -1,0 +1,127 @@
+<html>
+
+ <head>
+
+  <meta charset="utf-8" />
+
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no"/>
+
+  <title>AgriCaputre Farm Information</title>
+
+  <style> html, body, #viewDiv {padding: 0; margin: 0; height: 100%; width: 100%;} </style>
+
+ 
+
+ <link rel="stylesheet" href="https://js.arcgis.com/4.14/esri/themes/light/main.css"/>
+
+ <script src="https://js.arcgis.com/4.14/"></script>
+
+ 
+
+    <script>
+
+      require(["esri/Map",
+	  "esri/views/MapView",
+	  "esri/layers/GeoJSONLayer",
+	  "esri/layers/MapImageLayer"], function(Map, MapView,GeoJSONLayer, MapImageLayer) {
+	
+	const url = "https://klee12.github.io/dataTest/SEP_FARMS.geojson";
+	
+	const template = {
+        title: "Farm Infromation ",
+        content: "This is the {siteID} radar, located at {siteName}. The antenna elevation: {antennaElevation}",
+       
+      };
+	  
+	  const renderer = {
+        type: "simple",
+        field: "mag",
+		symbol: {
+          type: "simple-marker",
+          color: "blue",
+		outline: {
+            color: "white"
+          }
+        }};
+	
+	var Radarlayer = new MapImageLayer({
+	url:"https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/radar_meteo_imagery_nexrad_time/MapServer",
+	format: "jpgpng"
+	});
+ 
+	var Lightninglayer = new MapImageLayer({
+	url:"https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/sat_meteo_emulated_imagery_lightningstrikedensity_goes_time/MapServer",
+	format: "jpgpng"
+	});
+	
+	var sstlayer = new MapImageLayer({
+	url:"https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/analysis_ocean_sfc_sst_time/MapServer",
+	format: "jpgpng"
+	});
+	
+	
+	var blocation = new MapImageLayer({
+	url:"https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/obs_meteocean_insitu_sfc_time/MapServer",
+	format: "jpgpng"
+	});
+		
+	var satellitelayer = new MapImageLayer({
+	url:"https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/sat_meteo_imagery_time/MapServer",
+	format: "jpgpng"
+	});
+		
+	
+	
+	var convectivelayer = new MapImageLayer({
+	url:"https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/guidance_natlcenters_meteoceanhydro_outlooks_time/MapServer",
+	format: "jpgpng"
+	});
+		
+	var sfctemplayer = new MapImageLayer({
+	url:"https://nowcoast.noaa.gov/arcgis/rest/services/nowcoast/forecast_meteoceanhydro_sfc_ndfd_qpf6hrs_offsets/MapServer",
+	format: "jpgpng"
+	});
+	
+	
+	const geojsonLayer = new GeoJSONLayer({
+		url: url,
+		copyright: "GEOG 417/817 Kun-Yuan Lee",
+		popupTemplate: template,
+		renderer:renderer
+		});
+	
+	
+	var map = new Map({
+         basemap: "streets",
+		 layers: [sstlayer,sfctemplayer,blocation,Radarlayer,geojsonLayer, Lightninglayer]	
+        });
+        
+        
+	var view = new MapView({
+          container: "viewDiv",
+          map: map,
+          zoom: 4,
+          center: [-96.68, 40.81] // longitude, latitude – change this as needed
+        });
+      });
+
+    </script>
+
+  </head>
+
+ 
+
+  <body>
+
+    <div id="viewDiv"></div>
+
+  </body>
+
+</html>             
+
+
+
+
+https://basemaps.arcgis.com/arcgis/rest/services/World_Basemap_v2/VectorTileServer
+
+https://landscape10.arcgis.com/arcgis/rest/services/USA_NLCD_Tree_Canopy/ImageServer
