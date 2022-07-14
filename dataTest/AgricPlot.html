@@ -19,7 +19,7 @@
       <script src="https://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
       <link rel="stylesheet" href="https://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" type="text/css">
       <script src="https://dsps.lib.uiowa.edu/placing/public/jqueryUiTouchPunch-0.2.2/jquery.ui.touch-punch.min.js"></script>
-      <script src="https://klee12.github.io/dataTest/SEP_FARMS.geojson"></script>
+      <script src="https://klee12.github.io/dataTest/RiceFarmers.geojson"></script>
 
          <link rel="stylesheet" type="text/css" href="https://dsps.lib.uiowa.edu/placing/css/style.css">
          <link rel="stylesheet" type="text/css" href="https://dsps.lib.uiowa.edu/placing/css/navwrap.css">
@@ -83,7 +83,7 @@
 
 	
 
- var firstlayer = L.geoJson(SEP_FARMS, {
+ var firstlayer = L.geoJson(RiceFarmers, {
          //add popups
         onEachFeature: onEachFeature,
         style: function(feature) {
