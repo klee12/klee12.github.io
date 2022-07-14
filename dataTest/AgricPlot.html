@@ -87,7 +87,7 @@
          //add popups
         onEachFeature: onEachFeature,
         style: function(feature) {
-		 switch (feature.properties.OPERATOR_N){
+		 switch (feature.properties.OPERATOR_NAME){
             case '3M Planting Company': return {color: "#2548b0" };
 			case 'Beaver Bayou Partnership':   return {color: "##38f2b8"};
 			case 'Carter Coppage Ellis': return {color: "##ab921f"};
@@ -164,7 +164,7 @@
 		
 	var marker1 = L.marker([35.72,-90.02], {icon: Icon})
 	.addTo(map)
-	.bindPopup("<h2>Steve Mckaskle </h2 <h3> Total Farm Area: 87848 Acer <br> Total Crop  </h3> <p>  </p> <img src ='./img/Steve.jpg'  />", {maxWidth: "auto"});	
+	.bindPopup("<h2>Steve Mckaskle </h2>  <p>Steve McKaskle started farming in 1973 as a fifth-generation farmer. Steve wholeheartedly believes in regenerative farming and the benefits it will bring to the global agriculture industry. He has developed groundbreaking cultivation techniques with the USDA and secured relationships with notable companies such as Chipotle, Whole Foods Market, United Natural Foods, and KeHE. McKaskle Family Farms operates on over 3,000 acres cultivating a variety of crops including: popcorn, Basmati and long grain rice varieties, soybeans, corn, cotton, and oats. </p> <p> Total Farm: N/A. acers <br> Total Rice Acer: 4000 acers  <br> Total Climate Friendly Practice: 1000 acers <br>Climate Friendly Practice: Row Rice <br>Current Inventory: N/A' <br> Avaiable Inventory Start Nov 2022:1350000 <br>Rice prie/Pound: N/A.  </p> <img src ='./img/Steve.jpg'  />", {maxWidth: "auto"});	
 	
 	
 		
