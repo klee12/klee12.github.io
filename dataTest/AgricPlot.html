@@ -44,8 +44,8 @@
         
 
       var map = L.map('map', {
-         center: [38.9072, -90.0369],
-         zoom: 5,
+         center: [35.1495, -90.0490],
+         zoom: 8,
          layers: [basemap]
          });
 
@@ -73,45 +73,63 @@
 
       }; // end onEachFeature
 	  
-	   var blueCircleMarkers = {
-        radius: 4,
-        fillColor: "#FF7F50",
-        color: "#3978BF",
-        weight: 1,
-        opacity: 0.8,
-        fillOpacity: 0.5
-      };
+	// var marker = L.marker([ 35.72,-90.02])
+	 //.addTo(map)
+	 //.bindPopup("<h1>test</h1>")
+	 //.openPopup();
+	    
 
 
-      var orangeCircleMarkers = {
-        radius: 5,
-        fillColor: "#9FE2BF",
-        color: "#9FE2BF",
-        weight: 1,
-        opacity: 1,
-        fillOpacity: 0.7
-      };
 
- 
+	
 
-      var greenCircleMarkers = {
-        radius: 5,
-        fillColor: "#CCCCFF",
-        color: "#286933",
-        weight: 1,
-        opacity: 1,
-        fillOpacity: 0.7
-
-      };
-	  
-	      var firstlayer = L.geoJson(SEP_FARMS, {
-        // add popups
+ var firstlayer = L.geoJson(SEP_FARMS, {
+         //add popups
         onEachFeature: onEachFeature,
-        style: function(feature, latlng) {
-          return L.circleMarker(latlng, blueCircleMarkers);
-        }
+        style: function(feature) {
+		 switch (feature.properties.OPERATOR_N){
+            case '3M Planting Company': return {color: "#2548b0" };
+			case 'Beaver Bayou Partnership':   return {color: "##38f2b8"};
+			case 'Carter Coppage Ellis': return {color: "##ab921f"};
+            case 'Chuck Day Farms Partnership':   return {color: "#d835dc"};
+			case 'David Brooks Griffin': return {color: "#4e3601"};
+            case 'Deline Farms Partnership':   return {color: "#9756c5"};
+			case 'Deline Farms South': return {color: "#d20553"};
+            case 'Double G Farming':   return {color: "#fa42b7"};
+			case 'Fogleman Farms': return {color: "#cca21f"};
+            case 'Griffin Farms Partnership':   return {color: "#f24e49"};
+			case 'Griffin Farms South': return {color: "#2192e9"};
+            case 'Jacob Ayecock':   return {color: "#fc7b06"};
+			case 'Janus Farming Company Inc': return {color: "#fc7b06"};
+            case 'Jarret Lawfield':   return {color: "#a16ece"};
+		    case 'Larry Mcclendon Farms J V':   return {color: "#9e4428"};
+		    case 'Marthinus Swart':   return {color: "#3538a7"};
+		    case 'Matthew Moreland':   return {color: "#e08a18"};
+			case 'Medford Farm Partnership': return {color: "#f3fa76"};
+            case 'Moon Lake Farms Of Arkansas 2':   return {color: "#005a3f"};
+			case 'N & K Reed Farms': return {color: "#66a83e"};
+            case 'R And J Farms Ptrsp':   return {color: "#042822"};
+			case 'Ratio Farms': return {color: "#bacdbe"};
+            case 'Rickey Harris':   return {color: "#53e7fe"};
+			case 'Soudan Farming Co': return {color: "#6c18d8"};
+            case 'Stephens Partnership':   return {color: "#550f04"};
+			case 'Sunset Farms': return {color: "#bacdbe"};
+            case 'Tmg Farms':   return {color: "#fc7b06"};
+			case 'Tucker Farms Ptr': return {color: "#3538a7"};
+            case 'Vince And Susan Hillman':   return {color: "#cca21f"};
+			case 'W Paul Sellers Dba Pbs Farms': return {color: "#005a3f"};
+            case 'Wesson Farms, Inc':   return {color: "#f24e49"};
+		    case 'William Bart Turner':   return {color: "#66a83e"};
+		
+			}
+		  }
       }).addTo(map);
 	  
+		
+		
+		
+	  
+	 
 		L.control.scale({
 			metric:true,
 			imperial: true,
@@ -122,7 +140,7 @@
 			onAdd: function(map) {
 		 
  		   var img = L.DomUtil.create('img');
-			img.src = 'agIcon.png';
+			img.src = 'aglogo.png';
 			img.style.width = '200px';
 			return img;
             },
@@ -131,12 +149,35 @@
 			L.control.watermark = function(opts){
 			return new L.Control.Watermark(opts);
 			}
-        L.control.watermark().addTo(map);
+        L.control.watermark({position:'bottomright'}).addTo(map);
+		
+		
+		
+		
+	var Icon = L.icon({
+    iconUrl: 'cuteman.png',
+    iconSize:     [100, 100], // size of the icon
+    iconAnchor:   [24.5, 94], // point of the icon which will correspond to marker's location
+    popupAnchor:  [28, -70] // point from which the popup should open relative to the iconAnchor
+		});
+		
+		
+	var marker1 = L.marker([35.72,-90.02], {icon: Icon})
+	.addTo(map)
+	.bindPopup("<h2>Steve Mckaskle </h2 <h3> Total Farm Area: 87848 Acer <br> Total Crop  </h3> <p>  </p> <img src ='./img/Steve.jpg'  />", {maxWidth: "auto"});	
+	
+	
+		
+		
+		
+		
+		
+		
 
-var imageUrl = 'http://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg',
-    imageBounds = [[40.712216, -74.22655], [40.773941, -74.12544]];
+//var imageUrl = 'http://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg',
+  //  imageBounds = [[40.712216, -74.22655], [40.773941, -74.12544]];
 
-L.imageOverlay(imageUrl, imageBounds).addTo(map);
+//L.imageOverlay(imageUrl, imageBounds).addTo(map);
 
  	
 		
@@ -151,12 +192,12 @@ L.imageOverlay(imageUrl, imageBounds).addTo(map);
 
       // now make a timeline layer that the slider can manipulate
 
-      var searchLayer = L.geoJson(SEP_FARMS, {
-        onEachFeature: onEachFeature,
-        style: function(feature, latlng) {
-          return L.circleMarker(latlng, greenCircleMarkers);
-        }
-      });
+      //var searchLayer = L.geoJson(SEP_FARMS, {
+       // onEachFeature: onEachFeature,
+       // style: function(feature, latlng) {
+        //  return L.circleMarker(latlng, greenCircleMarkers);
+       // }
+      //});
 	  
 	  
 	//  var sliderControl = L.control.sliderControl({
@@ -238,24 +279,24 @@ L.imageOverlay(imageUrl, imageBounds).addTo(map);
      
      //    L.control.layers(overlays, baseMaps, {collapsed:false}).addTo(map);
          
-	map.setView([48.85, 2.35], 12);
+	
 
-var marker, popupContent;
+//var marker, popupContent;
 
-for (var i = 0; i < 1; i += 1) {
-    marker = L.marker([48.85, 2.35]).addTo(map);
-  popupContent = document.createElement("img");
-  popupContent.onload = function () {
-    marker.openPopup();
-  };
-  popupContent.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Stack_Exchange_logo_and_wordmark.svg/375px-Stack_Exchange_logo_and_wordmark.svg.png";
+//for (var i = 0; i < 1; i += 1) {
+   // marker = L.marker([48.85, 2.35]).addTo(map);
+  //popupContent = document.createElement("img");
+  //popupContent.onload = function () {
+   // marker.openPopup();
+  //};
+ // popupContent.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Stack_Exchange_logo_and_wordmark.svg/375px-Stack_Exchange_logo_and_wordmark.svg.png";
   //popupContent = '<img src="http://c4.staticflickr.com/1/691/21131215939_49601d06ef_b.jpg" />';
-  marker.bindPopup(popupContent, {
-    maxWidth: "auto"
-  });
-}
+  //marker.bindPopup(popupContent, {
+   // maxWidth: "auto"
+  //});
+//}
 
-marker.openPopup();
+//marker.openPopup();
 		
 		 
     </script>
