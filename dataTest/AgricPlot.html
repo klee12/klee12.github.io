@@ -20,9 +20,51 @@
       <link rel="stylesheet" href="https://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" type="text/css">
       <script src="https://dsps.lib.uiowa.edu/placing/public/jqueryUiTouchPunch-0.2.2/jquery.ui.touch-punch.min.js"></script>
       <script src="https://klee12.github.io/dataTest/RiceFarmers.geojson"></script>
+	  <script src="https://klee12.github.io/dataTest/FarmTotal.geojson"></script>
 
          <link rel="stylesheet" type="text/css" href="https://dsps.lib.uiowa.edu/placing/css/style.css">
          <link rel="stylesheet" type="text/css" href="https://dsps.lib.uiowa.edu/placing/css/navwrap.css">
+  
+  <style>
+  .custom-popup {
+    border-radius: 2px;
+    color: #504e4e;
+    font-family: 'Molengo', sans-serif;
+    font-size: 12px;
+    line-height: 10px;
+    height: 10 px ;
+    max-height: 300px;
+    }
+
+.custom-popup, .leaflet-popup-tip {
+    background: #e7e7e7;
+    border: none;
+    box-shadow: none;
+    }
+
+.leaflet-popup-content-wrapper {
+   background: #e7e7e7;
+   border-radius: 2px;
+   }
+
+.leaflet-popup {
+    position: absolute;
+    text-align: center;
+    }
+
+.leaflet-popup-content {
+    margin-top: 20px;
+    margin-right: 2px;
+    padding-right: 12px;
+    min-width: 100 px !important;
+    max-height: 300px;
+    overflow: auto;
+    }
+    
+  </style>
+  
+  
+  
   </head>
   
   
@@ -34,7 +76,7 @@
  
 
         var basemap =  L.tileLayer('https://api.maptiler.com/tiles/satellite-v2/{z}/{x}/{y}.jpg?key=VIgRA9HvUDuobZZ0dcIL', {
-                    attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                    attribution: 'Created by Kun-Yuan Lee &copy; AgriCapture Inc.  &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
                     subdomains: 'abcd',
                     minZoom: 0,
                     maxZoom: 20,
@@ -44,11 +86,26 @@
         
 
       var map = L.map('map', {
-         center: [35.1495, -90.0490],
-         zoom: 8,
+         center: [35.9495, -90.0490],
+         zoom: 8.5,
          layers: [basemap]
          });
 
+ 
+    var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+       maxZoom: 19,
+       attribution: '© OpenStreetMap'
+     });
+       
+	   var Tonermap =  L.tileLayer('https://api.maptiler.com/maps/toner/{z}/{x}/{y}.png?key=VIgRA9HvUDuobZZ0dcIL',{
+        tileSize: 512,
+        zoomOffset: -1,
+        minZoom: 1,
+       });
+ 
+ 
+    
+     // var streets = L.tileLayer(mapboxUrl, {id: 'mapbox/streets-v11', tileSize: 512, zoomOffset: -1, attribution: mapboxAttribution});
  
 
       // onEachFeature generate a popup for each location
@@ -57,7 +114,7 @@
         if (feature.properties) {
           var prop = feature.properties;
           // make a cool little html popup with properties
-            var popup = '<h3>'+' Farm '+prop['FARM_NAME']+'</h3>'+'<strong>State </strong>'+prop['STATE']+' '+'<br><strong>Acreage:    </strong>'+prop['Acreage']+'<br><strong>CF_Practic    </strong>'+prop['CF_Practic']+'<br><br><i> Note: Data provide by AgriCapture Inc. </i>';
+            var popup = '<h3>'+' Farm '+prop['FARM_NAME']+'</h3>'+'<strong>State: </strong>'+prop['STATE']+' '+'<br><strong>Acreage:    </strong>'+prop['Acreage']+'<br><strong>CF_Practic:    </strong>'+prop['CF_Practic']+'<br><br><i> Note: data provide by AgriCapture Inc. </i>';
             // add known info about event to the description
 
          
@@ -78,7 +135,7 @@
 	 //.bindPopup("<h1>test</h1>")
 	 //.openPopup();
 	    
-
+      
 
 
 	
@@ -90,7 +147,7 @@
 		 switch (feature.properties.OPERATOR_NAME){
             case '3M Planting Company': return {color: "#2548b0" };
 			case 'Beaver Bayou Partnership':   return {color: "##38f2b8"};
-			case 'Carter Coppage Ellis': return {color: "##ab921f"};
+			case 'Carter Coppage Ellis': return {color: "#3ab09e"};
             case 'Chuck Day Farms Partnership':   return {color: "#d835dc"};
 			case 'David Brooks Griffin': return {color: "#4e3601"};
             case 'Deline Farms Partnership':   return {color: "#9756c5"};
@@ -125,15 +182,29 @@
 		  }
       }).addTo(map);
 	  
-		
-		
-		
+	
+
+	var TFarm = L.geoJson(FarmTotal, {
+         //add popups
+        onEachFeature: onEachFeature,
+        style: function(feature) {
+		 switch (feature.properties.OPERATOR_NAME){
+            case '3M Planting Company': return {color: "#2548b0" };  
+			case 'Carter Coppage Ellis': return {color: "#3ab09e"}; 
+            case 'Fogleman Farms': return {color: "#cca21f"};  
+            case 'Jarret Lawfield':   return {color: "#a16ece"};   
+		    case 'Wesson Farms, Inc':  return {color: "#f24e49"};   
+		    case 'Galen Franz':  return {color: "#66a83e"};
+			}
+		  }
+      });
+	
 	  
 	 
 		L.control.scale({
 			metric:true,
 			imperial: true,
-			position: 'topright'
+			position: 'bottomleft'
 			}).addTo(map);
 			
 		L.Control.Watermark = L.Control.extend({
@@ -160,19 +231,61 @@
     iconAnchor:   [24.5, 94], // point of the icon which will correspond to marker's location
     popupAnchor:  [28, -70] // point from which the popup should open relative to the iconAnchor
 		});
-		
-		
+				
+	//-----------Steve McKaskle section -----------------------//			
 	var marker1 = L.marker([35.72,-90.02], {icon: Icon})
 	.addTo(map)
-	.bindPopup("<h2>Steve Mckaskle </h2>  <p>Steve McKaskle started farming in 1973 as a fifth-generation farmer. Steve wholeheartedly believes in regenerative farming and the benefits it will bring to the global agriculture industry. He has developed groundbreaking cultivation techniques with the USDA and secured relationships with notable companies such as Chipotle, Whole Foods Market, United Natural Foods, and KeHE. McKaskle Family Farms operates on over 3,000 acres cultivating a variety of crops including: popcorn, Basmati and long grain rice varieties, soybeans, corn, cotton, and oats. </p> <p> Total Farm: N/A. acers <br> Total Rice Acer: 4000 acers  <br> Total Climate Friendly Practice: 1000 acers <br>Climate Friendly Practice: Row Rice <br>Current Inventory: N/A' <br> Avaiable Inventory Start Nov 2022:1350000 <br>Rice prie/Pound: N/A.  </p> <img src ='./img/Steve.jpg'  />", {maxWidth: "auto"});	
+	.bindPopup("<h2>Steve Mckaskle </h2>  <p>Steve McKaskle started farming in 1973 as a fifth-generation farmer. Steve wholeheartedly believes in regenerative farming and the benefits it will bring to the global agriculture industry. He has developed groundbreaking cultivation techniques with the USDA and secured relationships with notable companies such as Chipotle, Whole Foods Market, United Natural Foods, and KeHE. McKaskle Family Farms operates on over 3,000 acres cultivating a variety of crops including: popcorn, Basmati and long grain rice varieties, soybeans, corn, cotton, and oats. </p> <p> Total Farm: N/A. acers <br><strong>Total Rice Acer: 4000 acers  <br><strong> Total Climate Friendly Practice: 1000 acers <br><strong>Climate Friendly Practice: Row Rice<strong> <br>Current Inventory: N/A' <br><strong> Avaiable Inventory Start Nov 2022:1350000 <br><strong>Rice prie/Pound: N/A.  </p> <img src ='./img/Steve1.jpg'  />", {maxWidth: "auto"});	
+		
+	  // Pass the current marker to the function (or the popup itself)
+    function collapseDetail(mark1) {
+        $("#serviceTable").css("display", "none");
+        $("#serviceDataDownIcon").show();
+        $("#serviceDataUpIcon").hide();
+        // Update the current marker's popup
+        marker1.getPopup().update() // If m is the popup popup.update()
+    }	
 	
 	
+	
+	//-------Jerry Lawfield section---------------------------------//
+   var marker2 = L.marker([36.60,-89.69], {icon: Icon})
+	.addTo(map)
+	.bindPopup("<h2>Jerry LawField</h2>  <p>, Jarret Lawfield is an early adopter of Climate-Friendly Rice cultivation practices that reduce GHG emissions and conserve water. He grows Furrow Irrigated Rice (FIR), or row rice, to minimize the production and release of methane from his fields. Jarret maintains an efficient nutrient management plan that ensures his rice fields are absorbing fertilizer instead of releasing nitrous oxide into the atmosphere. Jarret farms alongside his two brothers in Catron, Missouri. </p> <p> Total Farm: N/A. acers <br><strong>Total Rice Acer: 2000 acers  <br><strong> Total Climate Friendly Practice: 1000 acers <br><strong>Climate Friendly Practice: Row Rice<strong> <br>Current Inventory: N/A' <br><strong> Avaiable Inventory Start Nov 2022:290000 <br><strong>Rice prie/Pound: N/A.  </p> <img src ='./img/Jlaw.png'  />", {maxWidth: "auto"});	
 		
+	  // Pass the current marker to the function (or the popup itself)
+    function collapseDetail(mark2) {
+        $("#serviceTable").css("display", "none");
+        $("#serviceDataDownIcon").show();
+        $("#serviceDataUpIcon").hide();
+        // Update the current marker's popup
+        marker2.getPopup().update() // If m is the popup popup.update()
+    }	
+	
+	//----group all the marker points-------//
+	
+	var markerAll = L.layerGroup([marker1, marker2]);
+	
 		
-		
-		
-		
-		
+	var baseMaps = {
+    "Satellite": basemap,
+    "contrast": Tonermap
+		};
+
+	var overlayMaps = {
+    "Our Farmers": markerAll,
+	"Farm details": firstlayer,
+	"FarmTOTAL": TFarm
+	};
+	
+	
+	
+
+  var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map);
+	
+
+    
+	//layerControl.addOverlay(markergroup, "Farmers");
 
 //var imageUrl = 'http://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg',
   //  imageBounds = [[40.712216, -74.22655], [40.773941, -74.12544]];
