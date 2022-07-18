@@ -377,21 +377,23 @@
         // Update the current marker's popup
         marker1.getPopup().update() // If m is the popup popup.update()
     }	
-	 L.Icon.Big = L.Icon.extend({
-	 options:{
-	 iconSize: new L.Point(130,130),
-	 iconUrl: 'cuteman.png',
-	 }}); 
+	 <!-- L.Icon.Big = L.Icon.extend({ -->
+	 <!-- options:{ -->
+	 <!-- iconSize: new L.Point(130,130), -->
+	 <!-- iconUrl: 'cuteman.png', -->
+	 <!-- iconAnchor:   [24.5, 94], // point of the icon which will correspond to marker's location -->
+     <!-- popupAnchor:  [28, -70]  -->
+	 <!-- }});  -->
 	 
-	    var bigIcon = new L.Icon.Big();
-      marker.on('mouseover', function (e) {
-            this.openPopup();
-            e.target.setIcon(bigIcon);
-        });
-        marker.on('mouseout', function (e) {
-            this.closePopup();
-           e.target.setIcon(marker1);
-        });
+	    <!-- var bigIcon = new L.Icon.Big(); -->
+      <!-- marker.on('mouseover', function (e) { -->
+            <!-- this.openPopup(); -->
+            <!-- e.target.setIcon(bigIcon); -->
+        <!-- }); -->
+        <!-- marker.on('mouseout', function (e) { -->
+            <!-- this.closePopup(); -->
+           <!-- e.target.setIcon(marker1); -->
+        <!-- }); -->
 	 
 	 
 	//-------Jerry Lawfield section---------------------------------//
